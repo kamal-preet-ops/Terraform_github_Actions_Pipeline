@@ -39,6 +39,7 @@ jobs:
   job2:
     name: terraform Apply
     runs-on: ubuntu-latest
+    needs: job1
     steps:
       - name: terraform install
         uses: hashicorp/setup-terraform@v4
@@ -55,6 +56,7 @@ jobs:
       
       - name: terraform apply
         run: |
-          terraform apply -auto-approve
           terraform init
+          terraform apply -auto-approve
+          
 
