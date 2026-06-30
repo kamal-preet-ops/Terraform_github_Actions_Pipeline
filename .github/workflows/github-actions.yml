@@ -17,6 +17,9 @@ jobs:
     name: Azurelogin
     runs-on: ubuntu-latest   
     steps:
+      - name: terraform install
+        uses: hashicorp/setup-terraform@v4
+        
       - name: checkout
         uses: actions/checkout@v4
         
@@ -32,4 +35,4 @@ jobs:
         run: |
           terraform init
           terraform plan
-          terraform apply
+          terraform apply -auto-approve
