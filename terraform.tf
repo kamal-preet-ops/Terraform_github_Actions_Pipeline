@@ -8,7 +8,7 @@ azurerm = {
 }
 
 provider "azurerm"{
-features = {}
+features {}
 }
 
 
