@@ -12,8 +12,8 @@ features {}
 }
 
 
-resource "azurerm_resource_group" "RG1" {
-name = "kamalrg123"
+resource "azurerm_resource_group" "RG1121" {
+name = "kamalrg145423"
 location = "eastus"
 
 }
