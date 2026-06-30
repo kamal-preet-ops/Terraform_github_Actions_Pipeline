@@ -1,0 +1,35 @@
+name: terraform pipeline
+
+on: 
+  workflow_dispatch: 
+  push:
+    branches:
+      - main
+
+permissions:
+  id-token: write
+  contents: read
+  
+#azure login
+jobs:
+#we are doing azure login in this step
+  job1:
+    name: Azurelogin
+    runs-on: ubuntu-latest   
+    steps:
+      - name: checkout
+        uses: actions/checkout@v4
+        
+      - name: Azurelogin
+        uses: azure/login@v3  
+        with:
+          client-id: ${{ secrets.AZURE_CLIENT_ID }}
+          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+          
+# Initialising terraform
+      - name: terraform initialisation
+        run: |
+          terraform init
+          terraform plan
+          terraform apply
