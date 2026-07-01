@@ -38,19 +38,19 @@ jobs:
       
       - name: Terraform initialisation
         uses: hashicorp/setup-terraform@v4 
-        working-directory: ./Terraform_github_Actions_Pipeline         
+        # working-directory: ./Terraform_github_Actions_Pipeline         
         
       - name: terrarun
         run: terraform init
-        working-directory: ./Terraform_github_Actions_Pipeline  
+        # working-directory: ./Terraform_github_Actions_Pipeline  
         
       - name: terravalidate
         run: terraform validate
-        working-directory: ./Terraform_github_Actions_Pipeline  
+        # working-directory: ./Terraform_github_Actions_Pipeline  
         
       - name: terrarform plan
         run: terraform plan
-        working-directory: ./Terraform_github_Actions_Pipeline  
+        # working-directory: ./Terraform_github_Actions_Pipeline  
         
   Job2:
     name: Terraform_Plan
@@ -70,10 +70,10 @@ jobs:
             
       - name: terrarun
         run: terraform init
-        working-directory: ./Terraform_github_Actions_Pipeline      
+        # working-directory: ./Terraform_github_Actions_Pipeline      
           
       - name: terraapply
         run: terraform apply --auto-approve
-        working-directory: ./Terraform_github_Actions_Pipeline  
+        # working-directory: ./Terraform_github_Actions_Pipeline  
         
     
