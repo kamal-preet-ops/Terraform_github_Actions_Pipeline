@@ -1,10 +1,8 @@
-Name: Kamalkinewpipeline2
+name: Kamalkinewpipeline2
+
 # bhai 2 branches bna rhe hai, jb git push krenge ya pull request raise krnege tb yeh pipelines chlengi
 on:
   push:
-    branches:
-      - main
-  pull:
     branches:
       - main
       
@@ -14,7 +12,7 @@ permissions:
   
 jobs: 
   Job1:
-    Name: Azurelogin
+    name: Azurelogin
     runs-on: ubuntu-latest
     steps:
       - name: Globalrepocheckout
