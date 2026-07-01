@@ -1,62 +1,81 @@
-name: terraform pipeline
-
-on: 
-  workflow_dispatch: 
+Name: Kamalkinewpipeline
+# bhai 2 branches bna rhe hai, jb git push krenge ya pull request raise krnege tb yeh pipelines chlengi
+on:
   push:
     branches:
       - main
-
-permissions:
-  id-token: write
-  contents: read
-  
-#azure login
-jobs:
-#we are doing azure login in this step
-  job1:
-    name: Azurelogin
-    runs-on: ubuntu-latest   
-    steps:
-      - name: terraform install
-        uses: hashicorp/setup-terraform@v4
-        
-      - name: checkout
-        uses: actions/checkout@v4
-        
-      - name: Azurelogin
-        uses: azure/login@v3  
-        with:
-          client-id: ${{ secrets.AZURE_CLIENT_ID }}
-          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
-          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}      
-          
-# Initialising terraform
-      - name: terraform initialisation
-        run: |
-          terraform init
-          terraform plan
-
-  job2:
-    name: terraform Apply
-    runs-on: ubuntu-latest
-    needs: job1
-    steps:
-      - name: terraform install
-        uses: hashicorp/setup-terraform@v4
-        
-      - name: checkout
-        uses: actions/checkout@v4
-        
-      - name: Azurelogin
-        uses: azure/login@v3  
-        with:
-          client-id: ${{ secrets.AZURE_CLIENT_ID }}
-          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
-          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }} 
+  pull:
+    branches:
+      - main
       
-      - name: terraform apply
-        run: |
-          terraform init
-          terraform apply -auto-approve
+permissions:
+  contents: read
+  id-token: write
+  
+jobs: 
+  Job1:
+    Name: Azurelogin
+    runs-on: ubuntu-latest
+    steps:
+      - name: Globalrepocheckout
+        uses: actions/checkout@v7.0.0
+        
+      - name: Azurelogin
+        uses: Azure/login@v3
+        with:
+          client-id: ${{ secrets.AZURE_CLIENT_I }}
+          subscription-id: ${{secrets.AZURE_SUBSCRIPTION_ID }} 
+          tenant-id: ${{ secrets.AZURE.TENANT.ID }}
           
-
+      - name: Globalrepocheckout
+        uses: actions/checkout@v7.0.0
+        
+      - name: checkov_security_tool
+        uses: bridgecrewio/checkov-action@v12.1347.0
+        with:
+          directory: ./Terraform_github_Actions_Pipeline
+          soft_fail: true
+        
+      
+      
+      - name: Terraform initialisation
+        uses: hashicorp/setup-terraform@v4 
+        working-directory: ./Terraform_github_Actions_Pipeline         
+        
+      - name: terrarun
+        run: terraform init
+        working-directory: ./Terraform_github_Actions_Pipeline  
+        
+      - name: terravalidate
+        run: terraform validate
+        working-directory: ./Terraform_github_Actions_Pipeline  
+        
+      - name: terrarform plan
+        run: terraform plan
+        working-directory: ./Terraform_github_Actions_Pipeline  
+        
+  Job2:
+    name: Terraform_Plan
+    runs-on: ubuntu-latest
+    needs: Job1
+    
+    steps:
+      - name: Globalrepocheckout
+        uses: actions/checkout@v7.0.0
+        
+      - name: Azurelogin
+        uses: Azure/login@v3
+        with:
+          client-id: ${{ secrets.AZURE_CLIENT_I }}
+          subscription-id: ${{secrets.AZURE_SUBSCRIPTION_ID }} 
+          tenant-id: ${{ secrets.AZURE.TENANT.ID }}
+            
+      - name: terrarun
+        run: terraform init
+        working-directory: ./Terraform_github_Actions_Pipeline      
+          
+      - name: terraapply
+        run: terraform apply --auto-approve
+        working-directory: ./Terraform_github_Actions_Pipeline  
+        
+    
