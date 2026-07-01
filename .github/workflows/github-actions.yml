@@ -1,4 +1,4 @@
-Name: Kamalkinewpipeline
+Name: Kamalkinewpipeline2
 # bhai 2 branches bna rhe hai, jb git push krenge ya pull request raise krnege tb yeh pipelines chlengi
 on:
   push:
