@@ -55,6 +55,7 @@ jobs:
   Job2:
     name: Terraform_Plan
     runs-on: ubuntu-latest
+    environment: production
     needs: Job1
     
     steps:
