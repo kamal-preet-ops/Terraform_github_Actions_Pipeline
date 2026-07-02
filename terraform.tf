@@ -12,8 +12,8 @@ features {}
 }
 
 
-resource "azurerm_resource_group" "RG1121" {
-name = "kamalrg145423"
+resource "azurerm_resource_group" "RGgithubsession" {
+name = "kamalrggithub"
 location = "eastus"
 
 }
